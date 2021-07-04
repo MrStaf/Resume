@@ -3,8 +3,8 @@ import Card from "./../../components/card";
 import Head from "next/head";
 import {getData} from "../../functions/getData";
 
-const API_URL = "https://content.benoit.fage.fr:8055/items/";
-const ASSETS_URL = "https://content.benoit.fage.fr:8055/assets/";
+const API_URL = "https://content.benoit.fage.fr/items/";
+const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
 export default function Projects({skills, projects, project_skills}) {
   const technologies = project_skills.map((pj_s) => {
@@ -22,7 +22,7 @@ export default function Projects({skills, projects, project_skills}) {
       <title>Projects</title>
     </Head>
     <Header />
-    <main className="px-2 md:px-16 pt-12 flex justify-center">
+    <main className="flex justify-center px-2 pt-12 md:px-16">
         <div className="grid grid-flow-row grid-cols-2 gap-8 md:w-1/2">
           {projects?.map((project) => {
             return <Card 

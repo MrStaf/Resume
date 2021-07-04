@@ -10,8 +10,8 @@ import Head from 'next/head';
 
 import { getData } from '../functions/getData';
 
-const API_URL = "https://content.benoit.fage.fr:8055/items/";
-const ASSETS_URL = "https://content.benoit.fage.fr:8055/assets/";
+const API_URL = "https://content.benoit.fage.fr/items/";
+const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
 
 export default function Resume({exp, skills, formations, perso_info}) {
@@ -22,10 +22,10 @@ export default function Resume({exp, skills, formations, perso_info}) {
         <title>Resume Benoît Fage</title>
       </Head>
       <Header />
-      <main className="px-16 pt-12 flex flex-col">
+      <main className="flex flex-col px-16 pt-12">
         <div className="flex flex-row">
           <img width="200px" height="200px" src={ASSETS_URL + perso_info?.profile_picture} />
-          <div className="ml-16 mt-20 text-2xl">
+          <div className="mt-20 ml-16 text-2xl">
             <span style={{fontFamily:"Degular"}} className="text-4xl font-bold">Hi, I'm Benoît</span><br/>
             <span>{perso_info?.job_situation}</span><br/>
             <span className={`font-thin ${perso_info?.available?"text-green-800":"text-red-800"}`}>{perso_info?.available?"Open to work":"Not available"}</span>
@@ -33,7 +33,7 @@ export default function Resume({exp, skills, formations, perso_info}) {
         </div>
         <div className="flex flex-row">
           <div style={{width:"200px"}}>
-            <div className="text-center text-2xl pt-6 border-b border-black pb-2" style={{ width: "200px" }}>Personal Info</div>
+            <div className="pt-6 pb-2 text-2xl text-center border-b border-black" style={{ width: "200px" }}>Personal Info</div>
             <div>
               <p className="mt-2">{perso_info?.email}</p>
               <p className="mt-2">{perso_info?.phone_number}</p>
@@ -48,14 +48,14 @@ export default function Resume({exp, skills, formations, perso_info}) {
               </span>
             </div>
           </div>
-          <div className="w-full pt-8 grid grid-cols-11">
-            <div className="flex flex-col items-end pr-6 col-span-5">
-              <span className="text-3xl uppercase font-semibold">Experience</span>
+          <div className="grid w-full grid-cols-11 pt-8">
+            <div className="flex flex-col items-end col-span-5 pr-6">
+              <span className="text-3xl font-semibold uppercase">Experience</span>
               <ul>
                 {exp?.map((el) => {
                   return (
                        <li key={el.id} className="flex flex-row mt-2">
-                        <div className="text-right mr-6">
+                        <div className="mr-6 text-right">
                         <span className="text-2xl">{el.job_position} - {el.end_date.split("-")[0]}</span><br/>
                         <span>2 Months - {el.company_name}</span>
                       </div>
@@ -67,22 +67,22 @@ export default function Resume({exp, skills, formations, perso_info}) {
                 })}
               </ul>
             </div>
-            <div className="col-end-7 justify-start items-center flex flex-col pb-2">
-              <Briefcase className="icon-medium mb-2"/>
-              <div className="border-r-2 border-black h-full"></div>
+            <div className="flex flex-col items-center justify-start col-end-7 pb-2">
+              <Briefcase className="mb-2 icon-medium"/>
+              <div className="h-full border-r-2 border-black"></div>
             </div>
-            <div className="col-start-6 justify-start items-center flex flex-col pb-2">
-              <Graduation className="icon-medium mb-2" />
-              <div className="border-r-2 border-black h-full"></div>
+            <div className="flex flex-col items-center justify-start col-start-6 pb-2">
+              <Graduation className="mb-2 icon-medium" />
+              <div className="h-full border-r-2 border-black"></div>
             </div>
-            <div className="flex flex-col pl-6 col-span-5">
-              <span className="text-3xl uppercase font-semibold">Formation</span>
+            <div className="flex flex-col col-span-5 pl-6">
+              <span className="text-3xl font-semibold uppercase">Formation</span>
               <ul>
                 {formations?.map((el) => {
                   return (
                     <li key={el.id} className="flex flex-row mt-2">
                       <a href={el.school_linkedin} target="_blank"><img height="50px" width="50px" src={ASSETS_URL + el.school_img}/></a>
-                  <div className="text-left ml-6">
+                  <div className="ml-6 text-left">
                         <span className="text-2xl">{`${el.school_name} - ${el.begin_date.split("-")[0]} / ${el.end_date.split("-")[0]}`}</span><br/>
                         <span>{el.formation_title}</span>
                   </div>
@@ -91,34 +91,34 @@ export default function Resume({exp, skills, formations, perso_info}) {
                 })}
               </ul>
             </div>
-            <div className="flex flex-col items-end pr-6 col-span-5">
-              <span className="text-3xl uppercase font-semibold">Languages</span>
+            <div className="flex flex-col items-end col-span-5 pr-6">
+              <span className="text-3xl font-semibold uppercase">Languages</span>
               <ul className="text-xl">
-                <li className="text-right mr-6 mt-2">
+                <li className="mt-2 mr-6 text-right">
                     French ~ Native
                 </li>
-                <li className="text-right mr-6 mt-2">
+                <li className="mt-2 mr-6 text-right">
                     English ~ B2
                 </li>
-                <li className="text-right mr-6 mt-2">
+                <li className="mt-2 mr-6 text-right">
                     Korean ~ A1
                 </li>
               </ul>
             </div>
-            <div className="col-end-7 justify-start items-center flex flex-col pb-2">
-              <Language className="icon-medium mb-2" />
-              <div className="border-r-2 border-black h-full"></div>
+            <div className="flex flex-col items-center justify-start col-end-7 pb-2">
+              <Language className="mb-2 icon-medium" />
+              <div className="h-full border-r-2 border-black"></div>
             </div>
-            <div className="col-start-6 justify-start items-center flex flex-col pb-2">
-              <Cogs className="icon-medium mb-2" />
-              <div className="border-r-2 border-black h-full"></div>
+            <div className="flex flex-col items-center justify-start col-start-6 pb-2">
+              <Cogs className="mb-2 icon-medium" />
+              <div className="h-full border-r-2 border-black"></div>
             </div>
-            <div className="flex flex-col pl-6 col-span-5">
-              <span className="text-3xl uppercase font-semibold">Skills</span>
+            <div className="flex flex-col col-span-5 pl-6">
+              <span className="text-3xl font-semibold uppercase">Skills</span>
               <ul className="grid grid-cols-2">
                 {skills?.map((el) => {
                   return (
-                    <li key={el.id} className="flex flex-row mt-2 items-center justify-start">
+                    <li key={el.id} className="flex flex-row items-center justify-start mt-2">
                       {el.skills_img ? <img className="icon-small" src={ASSETS_URL + el.skills_img} />:<div className="icon-small"></div>}
                       <span className="mx-4">{el.skill_name}</span>
                       {el.linkedin_certificate ? <a href={el.linkedin_link} target="_blank"><Check className="icon-tiny" /></a>:""}
