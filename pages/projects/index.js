@@ -3,8 +3,8 @@ import Card from "./../../components/card";
 import Head from "next/head";
 import {getData} from "../../functions/getData";
 
-const API_URL = "https://content-benoit.fage.fr/items/";
-const ASSETS_URL = "https://content-benoit.fage.fr/assets/";
+const API_URL = "https://content.benoit.fage.fr:8055/items/";
+const ASSETS_URL = "https://content.benoit.fage.fr:8055/assets/";
 
 export default function Projects({skills, projects, project_skills}) {
   const technologies = project_skills.map((pj_s) => {

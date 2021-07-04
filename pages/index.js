@@ -10,8 +10,8 @@ import Head from 'next/head';
 
 import { getData } from '../functions/getData';
 
-const API_URL = "https://content-benoit.fage.fr/items/";
-const ASSETS_URL = "https://content-benoit.fage.fr/assets/";
+const API_URL = "https://content.benoit.fage.fr:8055/items/";
+const ASSETS_URL = "https://content.benoit.fage.fr:8055/assets/";
 
 
 export default function Resume({exp, skills, formations, perso_info}) {
