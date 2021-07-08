@@ -12,5 +12,5 @@ export const getData = async (url = '') => {
     if (!response) {
       throw new Error(response.status);
     }
-    return response.json();
+    return response === undefined?null:response.json();
 }

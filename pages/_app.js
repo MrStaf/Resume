@@ -16,7 +16,7 @@ Router.events.on('routeChangeError', () => {
   NProgress.remove();
 })
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} className="h-full" />
+  return <Component {...pageProps} className="w-full h-full" />
 }
 
 export default MyApp

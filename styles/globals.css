@@ -9,12 +9,21 @@ body {
 
 #__next{
   height: 100%;
+  width: 100%;
 }
 
 a {
   color: inherit;
-  text-decoration: none;
+  text-decoration: underline !important;
+  text-decoration-color: #1959d8 !important;
 }
+
+@media print {
+  a {
+    text-decoration: none;
+  }
+}
+
 
 * {
   box-sizing: border-box;
@@ -41,6 +50,13 @@ a {
   /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@font-face {
+  font-family: "Space Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+}
+
 :root {
   --color-bg : #F0F3F4;
   --color-primary : #090c0e;
@@ -54,6 +70,11 @@ body {
   height: 1rem;
 }
 
+@media print {
+  .icon-tiny {
+    height: 0.5rem;
+  }
+}
 .icon-small {
   width: 2rem;
 }
@@ -67,5 +88,15 @@ body {
 }
 
 .w-200 {
-  width:200px;
+  width: 200px;
 }
+
+.h-50 {
+  width: 50px;
+}
+
+.w-50 {
+  height: 50px;
+}
+
+@page { size: auto;  margin: 0mm; }
