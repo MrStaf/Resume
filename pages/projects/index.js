@@ -2,6 +2,7 @@ import Header from "./../../components/header";
 import Card from "./../../components/card";
 import Head from "next/head";
 import { getData } from "../../functions/getData";
+import { nanoid } from 'nanoid';
 
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
@@ -29,12 +30,12 @@ export default function Projects({ skills, projects, project_skills }) {
         <title>Projects</title>
       </Head>
       <Header />
-      <main className="flex justify-center px-2 pt-2 sm:pt-12 md:px-16">
-        <div className="grid grid-flow-row grid-cols-1 gap-8 md:grid-cols-2 max-w-prose">
+      <main className="flex justify-center px-2 pt-8 sm:pt-12 md:px-16">
+        <ul className="grid grid-flow-row grid-cols-1 gap-8 md:grid-cols-2 max-w-prose">
           {projects?.map((project) => {
             return (
               <Card
-                key={project?.id}
+                key={nanoid()}
                 id={project?.id}
                 title={project?.project_title}
                 img={ASSETS_URL + project?.project_image}
@@ -48,7 +49,7 @@ export default function Projects({ skills, projects, project_skills }) {
               />
             );
           })}
-        </div>
+        </ul>
       </main>
       <footer className="pt-8"></footer>
     </div>
