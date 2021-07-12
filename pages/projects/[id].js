@@ -2,6 +2,7 @@ import Header from "./../../components/header";
 import Head from "next/head";
 import { getData } from "./../../functions/getData";
 import Check from "./../../assets/icons/check-circle-regular.svg";
+import Git from "./../../assets/icons/github-square-brands.svg";
 
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
@@ -32,7 +33,25 @@ export default function Projects({ skills, project, project_skills }) {
       <Header />
       <main className="flex justify-center px-0 pt-4 sm:px-2 sm:pt-12 md:px-16">
         <div className="w-full sm:w-1/2" id="content">
-          {project ? <img src={ASSETS_URL + project?.project_image} /> : ""}
+          {project ? (
+            <img
+              src={ASSETS_URL + project?.project_image}
+              className="filter drop-shadow-sm"
+            />
+          ) : (
+            ""
+          )}
+          {project?.project_github ? (
+            <a
+              href={project?.project_github}
+              target="_blank"
+              className="cursor-pointer"
+            >
+              <Git className="icon-medium" />
+            </a>
+          ) : (
+            ""
+          )}
           <h2 className="mx-2">Technologies</h2>
           <ul className="flex flex-row h-8 mt-4">
             {technologies?.map((el) => {
