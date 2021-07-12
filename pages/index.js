@@ -9,6 +9,7 @@ import Header from "./../components/header";
 import Head from "next/head";
 
 import { getData } from "../functions/getData";
+import { getTime2Dates } from "../functions/getTime2Dates";
 
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
@@ -45,7 +46,7 @@ export default function Resume({
               style={{ fontFamily: "Degular" }}
               className="text-4xl font-bold"
             >
-              Hi, I'm Benoît
+              Hi, I'm Benoît Fage
             </span>
             <br />
             <span>{perso_info?.job_situation}</span>
@@ -55,7 +56,19 @@ export default function Resume({
                 perso_info?.available ? "text-green-800" : "text-red-800"
               }`}
             >
-              {perso_info?.available ? "Open to work" : "Not available"}
+              {perso_info?.available ? (
+                <div className="flex">
+                  Open to work
+                  <a href={perso_info?.freelance_url} target="_blank">
+                    <span className="relative flex w-3 h-3">
+                      <span className="absolute inline-flex w-full h-full bg-green-400 rounded-full opacity-75 animate-ping"></span>
+                      <span className="relative inline-flex w-3 h-3 bg-green-500 rounded-full"></span>
+                    </span>
+                  </a>
+                </div>
+              ) : (
+                "Not available"
+              )}
             </span>
           </div>
         </div>
@@ -68,9 +81,9 @@ export default function Resume({
               Personal Info
             </div>
             <div className="print:text-lg">
-              <p className="mt-2 print:mt-0">{perso_info?.email}</p>
-              <p className="mt-2 print:mt-0">{perso_info?.phone_number}</p>
-              <p className="mt-2 print:mt-0">{perso_info?.perso_address}</p>
+              <p className="mt-2 print:mt-1">{perso_info?.email}</p>
+              <p className="mt-1 print:mt-0">{perso_info?.phone_number}</p>
+              <p className="mt-1 print:mt-0">{perso_info?.perso_address}</p>
               <span className="flex flex-row justify-around mt-2 print:hidden">
                 <a
                   href={perso_info?.github_link}
@@ -106,7 +119,10 @@ export default function Resume({
                           {el.job_position} - {el.end_date.split("-")[0]}
                         </span>
                         <br />
-                        <span>2 Months - {el.company_name}</span>
+                        <span>
+                          {getTime2Dates(el.begin_date, el.end_date)} -{" "}
+                          {el.company_name}
+                        </span>
                       </div>
                       <a
                         href={el.linkedin_company}
@@ -145,18 +161,21 @@ export default function Resume({
                         className="object-contain h-50 w-50"
                         src={ASSETS_URL + el.school_img}
                       />
-                      <div className="text-sm text-left sm:ml-6 print:ml-6">
-                        <span className="text-lg sm:text-2xl">{
-                          el.school_linkedin ? (
-                            <a href={el.school_linkedin} target="_blank">
+                      <div className="text-left sm:ml-6 print:ml-6">
+                        <span className="text-lg sm:text-2xl">
+                          {el.school_linkedin ? (
+                            <a
+                              href={el.school_linkedin}
+                              className="a"
+                              target="_blank"
+                            >
                               {el.school_name}
                             </a>
                           ) : (
                             el.school_name
-                          )
-                        } - {el.begin_date.split("-")[0]} / {
-                          el.end_date.split("-")[0]
-                        }</span>
+                          )}{" "}
+                          - {el.begin_date.split("-")[0]}/{el.end_date.split("-")[0]}
+                        </span>
                         <br />
                         <span>{el.formation_title}</span>
                       </div>
@@ -211,7 +230,7 @@ export default function Resume({
                       </span>
                       {el.linkedin_certificate ? (
                         <a href={el.linkedin_link} target="_blank">
-                          <Check className="icon-tiny print:hidden"/>
+                          <Check className="icon-tiny print:hidden" />
                         </a>
                       ) : (
                         ""
@@ -225,7 +244,14 @@ export default function Resume({
         </div>
       </main>
       <footer className="pt-8 text-center print:hidden">
-        Hosted by <a href="https://vercel.com/">Vercel</a>, source code is available <a href="https://github.com/MrStaf/Resume">here</a>
+        Hosted by{" "}
+        <a className="a" href="https://vercel.com/">
+          Vercel
+        </a>
+        , source code is available{" "}
+        <a className="a" href="https://github.com/MrStaf/Resume">
+          here
+        </a>
       </footer>
     </div>
   );
