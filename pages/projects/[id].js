@@ -39,8 +39,8 @@ export default function Projects({ skills, project, project_skills }) {
         <link href="projects.css" rel="stylesheet" />
       </Head>
       <Header />
-      <main className="flex justify-center w-full max-w-5xl px-0 pt-4 sm:px-2 sm:pt-12 md:px-16">
-        <div className="w-full" id="content">
+      <main className="flex justify-center w-full px-0 pt-4 sm:px-2 sm:pt-12 md:px-16">
+        <div className="w-full max-w-5xl" id="content">
           {project ? (
             <img
               src={ASSETS_URL + project?.project_image}
