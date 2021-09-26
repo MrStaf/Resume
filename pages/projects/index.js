@@ -1,9 +1,15 @@
+// Libraries
+import Head from "next/head";
+
+// Components
 import Header from "./../../components/header";
 import Card from "./../../components/card";
-import Head from "next/head";
+
+// Functions
 import { getData } from "../../functions/getData";
 import { nanoid } from 'nanoid';
 
+// CONST
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
@@ -17,6 +23,10 @@ export default function Projects({ skills, projects, project_skills }) {
     });
     return { id: pj_s.id, skill_name: item, projects_id: pj_s.projects_id };
   });
+  projects.sort((a, b) => {
+    let dateA = new Date(a.project_date), dateB = new Date(b.project_date);
+    return (dateB - dateA);
+  })
   return (
     <div
       style={{

@@ -1,3 +1,14 @@
+// Libraries
+import Head from "next/head";
+
+// Components
+import Header from "./../components/header";
+
+// Functions
+import { getData } from "../functions/getData";
+import { getTime2Dates } from "../functions/getTime2Dates";
+
+// SVG
 import Cogs from "./../assets/icons/cogs-solid.svg";
 import Language from "./../assets/icons/language-solid.svg";
 import Graduation from "./../assets/icons/graduation-cap-solid.svg";
@@ -5,12 +16,8 @@ import Briefcase from "./../assets/icons/briefcase-solid.svg";
 import Check from "./../assets/icons/check-circle-regular.svg";
 import Git from "./../assets/icons/github-square-brands.svg";
 import LinkedIn from "./../assets/icons/linkedin-brands.svg";
-import Header from "./../components/header";
-import Head from "next/head";
 
-import { getData } from "../functions/getData";
-import { getTime2Dates } from "../functions/getTime2Dates";
-
+// CONST
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
@@ -174,7 +181,8 @@ export default function Resume({
                           ) : (
                             el.school_name
                           )}{" "}
-                          - {el.begin_date.split("-")[0]}/{el.end_date.split("-")[0]}
+                          - {el.begin_date.split("-")[0]}/
+                          {el.end_date.split("-")[0]}
                         </span>
                         <br />
                         <span>{el.formation_title}</span>

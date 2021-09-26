@@ -1,9 +1,17 @@
-import Header from "./../../components/header";
+// Libraries
 import Head from "next/head";
+
+// Components
+import Header from "./../../components/header";
+
+// Functions
 import { getData } from "./../../functions/getData";
+
+// SVG
 import Check from "./../../assets/icons/check-circle-regular.svg";
 import Git from "./../../assets/icons/github-square-brands.svg";
 
+// CONST
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
@@ -24,15 +32,15 @@ export default function Projects({ skills, project, project_skills }) {
         fontFamily: "Quicksand",
         color: "var(--color-primary)",
       }}
-      className="h-full"
+      className="w-full h-full"
     >
       <Head>
         <title>{project?.project_title}</title>
         <link href="projects.css" rel="stylesheet" />
       </Head>
       <Header />
-      <main className="flex justify-center px-0 pt-4 sm:px-2 sm:pt-12 md:px-16">
-        <div className="w-full sm:w-1/2" id="content">
+      <main className="flex justify-center w-full max-w-5xl px-0 pt-4 sm:px-2 sm:pt-12 md:px-16">
+        <div className="w-full" id="content">
           {project ? (
             <img
               src={ASSETS_URL + project?.project_image}
@@ -45,7 +53,7 @@ export default function Projects({ skills, project, project_skills }) {
             <a
               href={project?.project_github}
               target="_blank"
-              className="cursor-pointer"
+              className="flex justify-center w-full cursor-pointer"
             >
               <Git className="icon-medium" />
             </a>

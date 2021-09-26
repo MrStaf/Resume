@@ -1,3 +1,4 @@
+// Components
 import Header from "../components/header";
 
 function Error({ statusCode }) {
