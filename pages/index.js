@@ -21,48 +21,30 @@ import LinkedIn from "./../assets/icons/linkedin-brands.svg";
 const API_URL = "https://content.benoit.fage.fr/items/";
 const ASSETS_URL = "https://content.benoit.fage.fr/assets/";
 
-export default function Resume({
-  exp,
-  skills,
-  formations,
-  perso_info,
-  languages,
-}) {
+export default function Resume({ exp, skills, formations, perso_info, languages }) {
+  const experiences = exp.sort((a, b) => new Date(b.begin_date) - new Date(a.begin_date));
   return (
     <div
       style={{
         background: "var(--color-bg)",
         fontFamily: "Quicksand",
         color: "var(--color-primary)",
-      }}
-    >
+      }}>
       <Head>
         <title>Resume Benoît Fage</title>
       </Head>
       <Header />
       <main className="flex flex-col px-2 pt-8 sm:pt-12 sm:px-16 print:pt-2">
         <div className="flex flex-row">
-          <img
-            width="200px"
-            height="200px"
-            className="object-contain"
-            src={ASSETS_URL + perso_info?.profile_picture}
-          />
+          <img width="200px" height="200px" className="object-contain" src={ASSETS_URL + perso_info?.profile_picture} />
           <div className="ml-4 text-2xl sm:mt-20 sm:ml-16">
-            <span
-              style={{ fontFamily: "Degular" }}
-              className="text-4xl font-bold"
-            >
+            <span style={{ fontFamily: "Degular" }} className="text-4xl font-bold">
               Hi, I'm Benoît Fage
             </span>
             <br />
             <span>{perso_info?.job_situation}</span>
             <br />
-            <span
-              className={`font-thin print:hidden ${
-                perso_info?.available ? "text-green-800" : "text-red-800"
-              }`}
-            >
+            <span className={`font-thin print:hidden ${perso_info?.available ? "text-green-800" : "text-red-800"}`}>
               {perso_info?.available ? (
                 <div className="flex">
                   Open to work
@@ -81,10 +63,7 @@ export default function Resume({
         </div>
         <div className="flex flex-col items-center print:items-start sm:items-start sm:flex-row">
           <div style={{ width: "200px" }}>
-            <div
-              className="pt-6 pb-2 text-2xl text-center border-b border-black print:pt-1 print:text-xl"
-              style={{ width: "200px" }}
-            >
+            <div className="pt-6 pb-2 text-2xl text-center border-b border-black print:pt-1 print:text-xl" style={{ width: "200px" }}>
               Personal Info
             </div>
             <div className="print:text-lg">
@@ -92,18 +71,10 @@ export default function Resume({
               <p className="mt-1 print:mt-0">{perso_info?.phone_number}</p>
               <p className="mt-1 print:mt-0">{perso_info?.perso_address}</p>
               <span className="flex flex-row justify-around mt-2 print:hidden">
-                <a
-                  href={perso_info?.github_link}
-                  target="_blank"
-                  className="cursor-pointer"
-                >
+                <a href={perso_info?.github_link} target="_blank" className="cursor-pointer">
                   <Git className="icon-medium" />
                 </a>
-                <a
-                  href={perso_info?.linkedin_link}
-                  target="_blank"
-                  className="cursor-pointer"
-                >
+                <a href={perso_info?.linkedin_link} target="_blank" className="cursor-pointer">
                   <LinkedIn className="icon-medium" />
                 </a>
               </span>
@@ -111,34 +82,22 @@ export default function Resume({
           </div>
           <div className="grid w-full grid-cols-11 pt-8 print:pt-0">
             <div className="flex flex-col items-end col-span-5 pr-6 print:col-span-4">
-              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">
-                Experience
-              </span>
-              <ul>
-                {exp?.map((el) => {
+              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">Experience</span>
+              <ul className="flex flex-col">
+                {experiences?.map((el) => {
                   return (
-                    <li
-                      key={el.id}
-                      className="flex flex-col mt-2 sm:flex-row print:flex-row"
-                    >
-                      <div className="mr-2 text-left sm:mr-6 sm:text-right print:text-right">
+                    <li key={el.id} className="flex flex-col mt-2 sm:flex-row print:flex-row">
+                      <div className="flex-grow mr-2 text-left sm:mr-6 sm:text-right print:text-right">
                         <span className="text-lg sm:text-2xl">
                           {el.job_position} - {el.end_date.split("-")[0]}
                         </span>
                         <br />
-                        <span>
-                          {getTime2Dates(el.begin_date, el.end_date)} -{" "}
-                          {el.company_name}
+                        <span className="text-gray-700">
+                          {getTime2Dates(el.begin_date, el.end_date)} - {el.company_name}
                         </span>
                       </div>
-                      <a
-                        href={el.linkedin_company}
-                        className="order-first sm:order-last print:order-last"
-                      >
-                        <img
-                          className="object-contain h-50 w-50"
-                          src={ASSETS_URL + el.company_photo}
-                        />
+                      <a href={el.linkedin_company} className="flex items-center justify-start flex-shrink-0 order-first sm:order-last print:order-last">
+                        <img className="object-contain h-50 w-50" src={ASSETS_URL + el.company_photo} />
                       </a>
                     </li>
                   );
@@ -154,38 +113,25 @@ export default function Resume({
               <div className="h-full border-r-2 border-black"></div>
             </div>
             <div className="flex flex-col col-span-5 pl-6 print:col-span-6">
-              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">
-                Formation
-              </span>
+              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">Formation</span>
               <ul>
                 {formations?.map((el) => {
                   return (
-                    <li
-                      key={el.id}
-                      className="flex flex-col items-start mt-2 sm:flex-row print:flex-row"
-                    >
-                      <img
-                        className="object-contain h-50 w-50"
-                        src={ASSETS_URL + el.school_img}
-                      />
+                    <li key={el.id} className="flex flex-col items-start mt-2 sm:flex-row print:flex-row">
+                      <img className="object-contain h-50 w-50" src={ASSETS_URL + el.school_img} />
                       <div className="text-left sm:ml-6 print:ml-6">
-                        <span className="text-lg sm:text-2xl">
+                        <span className="text-xl sm:text-2xl">
                           {el.school_linkedin ? (
-                            <a
-                              href={el.school_linkedin}
-                              className="a"
-                              target="_blank"
-                            >
+                            <a href={el.school_linkedin} className="a" target="_blank">
                               {el.school_name}
                             </a>
                           ) : (
                             el.school_name
                           )}{" "}
-                          - {el.begin_date.split("-")[0]}/
-                          {el.end_date.split("-")[0]}
+                          - {el.begin_date.split("-")[0]}/{el.end_date.split("-")[0]}
                         </span>
                         <br />
-                        <span>{el.formation_title}</span>
+                        <span className="text-gray-700">{el.formation_title}</span>
                       </div>
                     </li>
                   );
@@ -193,9 +139,7 @@ export default function Resume({
               </ul>
             </div>
             <div className="flex flex-col items-end col-span-5 pr-6 print:col-span-4">
-              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">
-                Languages
-              </span>
+              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">Languages</span>
               <ul className="text-lg sm:text-2xl">
                 {languages?.map((el) => {
                   return (
@@ -215,27 +159,13 @@ export default function Resume({
               <div className="h-full border-r-2 border-black"></div>
             </div>
             <div className="flex flex-col col-span-5 pl-6 print:col-span-6">
-              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">
-                Skills
-              </span>
+              <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">Skills</span>
               <ul className="grid grid-cols-1 mt-4 sm:mt-0 print:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3">
                 {skills?.map((el) => {
                   return (
-                    <li
-                      key={el.id}
-                      className="flex flex-row items-center justify-start mt-2 print:mt-1"
-                    >
-                      {el.skills_img ? (
-                        <img
-                          className="icon-small"
-                          src={ASSETS_URL + el.skills_img}
-                        />
-                      ) : (
-                        <div className="icon-small"></div>
-                      )}
-                      <span className="mx-1 sm:mx-4 print:text-sm">
-                        {el.skill_name}
-                      </span>
+                    <li key={el.id} className="flex flex-row items-center justify-start mt-2 print:mt-1">
+                      {el.skills_img ? <img className="icon-small" src={ASSETS_URL + el.skills_img} /> : <div className="icon-small"></div>}
+                      <span className="mx-1 sm:mx-4 print:text-sm">{el.skill_name}</span>
                       {el.linkedin_certificate ? (
                         <a href={el.linkedin_link} target="_blank">
                           <Check className="icon-tiny print:hidden" />
