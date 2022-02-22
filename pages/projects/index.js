@@ -7,7 +7,7 @@ import Card from "./../../components/card";
 
 // Functions
 import { getData } from "../../functions/getData";
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
 
 // CONST
 const API_URL = "https://content.benoit.fage.fr/items/";
@@ -23,10 +23,7 @@ export default function Projects({ skills, projects, project_skills }) {
     });
     return { id: pj_s.id, skill_name: item, projects_id: pj_s.projects_id };
   });
-  projects.sort((a, b) => {
-    let dateA = new Date(a.project_date), dateB = new Date(b.project_date);
-    return (dateB - dateA);
-  })
+  projects.sort((a, b) => new Date(b.project_date) - new Date(a.project_date));
   return (
     <div
       style={{
@@ -34,8 +31,7 @@ export default function Projects({ skills, projects, project_skills }) {
         fontFamily: "Quicksand",
         color: "var(--color-primary)",
       }}
-      className="h-full"
-    >
+      className="h-full">
       <Head>
         <title>Projects</title>
       </Head>
