@@ -11,10 +11,12 @@
     "@svgr/webpack": "^5.5.0",
     "fs": "^0.0.1-security",
     "nanoid": "^3.1.23",
-    "next": "^12.1.0",
+    "next": "^12.1.6",
     "nprogress": "^0.2.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "reat": "0.0.1-security",
+    "sharp": "^0.30.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",

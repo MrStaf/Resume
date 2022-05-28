@@ -1,5 +1,7 @@
 // Libraries
 import Head from "next/head";
+import Link from "next/link";
+import Image from "next/image";
 
 // Components
 import Header from "./../components/header";
@@ -36,7 +38,7 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
       <Header />
       <main className="flex flex-col px-2 pt-8 sm:pt-12 sm:px-16 print:pt-2">
         <div className="flex flex-row">
-          <img width="200px" height="200px" className="object-contain" src={ASSETS_URL + perso_info?.profile_picture} />
+          <Image width={200} height={200} className="object-contain" src={ASSETS_URL + perso_info?.profile_picture} alt="profile picture" />
           <div className="ml-4 text-2xl sm:mt-20 sm:ml-16">
             <span style={{ fontFamily: "Degular" }} className="text-4xl font-bold">
               Hi, I'm Benoît Fage
@@ -71,10 +73,10 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
               <p className="mt-1 print:mt-0">{perso_info?.phone_number}</p>
               <p className="mt-1 print:mt-0">{perso_info?.perso_address}</p>
               <span className="flex flex-row justify-around mt-2 print:hidden">
-                <a href={perso_info?.github_link} target="_blank" className="cursor-pointer">
+                <a href={perso_info?.github_link} target="_blank" rel="no-referrer" className="cursor-pointer" alt="link to my github profile">
                   <Git className="icon-medium" />
                 </a>
-                <a href={perso_info?.linkedin_link} target="_blank" className="cursor-pointer">
+                <a href={perso_info?.linkedin_link} target="_blank" rel="no-referrer" className="cursor-pointer" alt="link to my linkedIn profile">
                   <LinkedIn className="icon-medium" />
                 </a>
               </span>
@@ -85,6 +87,9 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
               <span className="mt-1 text-xl font-semibold uppercase sm:text-3xl">Experience</span>
               <ul className="flex flex-col">
                 {experiences?.map((el) => {
+                  if (!el.end_date) {
+                    el.end_date = new Date().toISOString().split("T")[0];
+                  }
                   return (
                     <li key={el.id} className="flex flex-col mt-2 sm:flex-row print:flex-row">
                       <div className="flex-grow mr-2 text-left sm:mr-6 sm:text-right print:text-right">
@@ -97,7 +102,7 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
                         </span>
                       </div>
                       <a href={el.linkedin_company} className="flex items-center justify-start flex-shrink-0 order-first sm:order-last print:order-last">
-                        <img className="object-contain h-50 w-50" src={ASSETS_URL + el.company_photo} />
+                        <Image className="object-contain h-50 w-50" height={50} width={50} alt={`logo of ${el.company_name}`} src={ASSETS_URL + el.company_photo} />
                       </a>
                     </li>
                   );
@@ -118,7 +123,7 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
                 {formations?.map((el) => {
                   return (
                     <li key={el.id} className="flex flex-col items-start mt-2 sm:flex-row print:flex-row">
-                      <img className="object-contain h-50 w-50" src={ASSETS_URL + el.school_img} />
+                      <Image width={50} height={50} className="object-contain h-50 w-50" src={ASSETS_URL + el.school_img} alt={`logo of ${el.school_img}`} />
                       <div className="text-left sm:ml-6 print:ml-6">
                         <span className="text-xl sm:text-2xl">
                           {el.school_linkedin ? (
@@ -144,7 +149,7 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
                 {languages?.map((el) => {
                   return (
                     <li key={el.id} className="mt-2 mr-6 text-right print:mt-0">
-                      {el.languages_name} ~ {el.languages_level}
+                      <strong>{el.languages_name}</strong> {el.languages_level}
                     </li>
                   );
                 })}
@@ -164,10 +169,10 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
                 {skills?.map((el) => {
                   return (
                     <li key={el.id} className="flex flex-row items-center justify-start mt-2 print:mt-1">
-                      {el.skills_img ? <img className="icon-small" src={ASSETS_URL + el.skills_img} /> : <div className="icon-small"></div>}
+                      {el.skills_img ? <Image className="icon-small" alt={`icon of ${el.skill_name}`} src={ASSETS_URL + el.skills_img} width={32} height={32} /> : <div className="icon-small"></div>}
                       <span className="mx-1 sm:mx-4 print:text-sm">{el.skill_name}</span>
                       {el.linkedin_certificate ? (
-                        <a href={el.linkedin_link} target="_blank">
+                        <a href={el.linkedin_link} target="_blank" alt={`link to linkedin certificate of ${el.skill_name}`}>
                           <Check className="icon-tiny print:hidden" />
                         </a>
                       ) : (
@@ -183,19 +188,24 @@ export default function Resume({ exp, skills, formations, perso_info, languages 
       </main>
       <footer className="pt-8 text-center print:hidden">
         Hosted by{" "}
-        <a className="a" href="https://vercel.com/">
-          Vercel
-        </a>
+        <Link href="https://web.informatyx.fr/">
+          <a className="a" target="_blank" rel="no-referrer" alt="link to hosting provider">
+            Informatyx
+          </a>
+        </Link>
         , source code is available{" "}
-        <a className="a" href="https://github.com/MrStaf/Resume">
-          here
-        </a>
+        <Link href="https://github.com/MrStaf/Resume">
+          <a className="a" target="_blank" rel="no-referrer" alt="link to github repo">
+            here
+          </a>
+        </Link>
       </footer>
     </div>
   );
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async ({ req, res }) => {
+  res.setHeader("Cache-Control", "public, s-maxage=10, stale-while-revalidate=59");
   const exp = await getData(API_URL + "experiences")
     .then((data) => {
       return data.data;
